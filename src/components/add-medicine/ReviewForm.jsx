@@ -9,20 +9,16 @@ import { useContext } from "react";
 
 export default function Review() {
   const {
-    name,
-    age,
     razaoSocial,
     fantasyName,
     cnpj,
-    dob,
-    medicineName,
+    email,
+    phone,
+    cellPhone,
     startDate,
     document_user_id,
-    medicineDuration,
-    dailyDosageCount,
-    dailyOccurrence,
+    medicineDuration
   } = useContext(AppContext);
-  console.log(dailyOccurrence);
   console.log(startDate);
   function convertTo12HourFormat(time24) {
     const [hours, minutes] = time24.split(":");
@@ -43,14 +39,6 @@ export default function Review() {
         Patient's Details
       </Typography>
       <List disablePadding>
-        <ListItem key={name} sx={{ py: 1, px: 0 }}>
-          <ListItemText primary={"Name"} />
-          <Typography variant="body2">{name}</Typography>
-        </ListItem>
-        <ListItem key={age} sx={{ py: 1, px: 0 }}>
-          <ListItemText primary={"Age"} />
-          <Typography variant="body2">{age}</Typography>
-        </ListItem>
         <ListItem key={razaoSocial} sx={{ py: 1, px: 0 }}>
           <ListItemText primary={"Razão Social"} />
           <Typography variant="body2">{razaoSocial}</Typography>
@@ -63,33 +51,24 @@ export default function Review() {
           <ListItemText primary={"CNPJ"} />
           <Typography variant="body2">{cnpj}</Typography>
         </ListItem>
-        <ListItem key={dob} sx={{ py: 1, px: 0 }}>
-          <ListItemText primary={"Date of Birth"} />
-          <Typography variant="body2">{dob}</Typography>
+        <ListItem key={email} sx={{ py: 1, px: 0 }}>
+          <ListItemText primary={"Email"} />
+          <Typography variant="body2">{email}</Typography>
         </ListItem>
-        <ListItem key={medicineName} sx={{ py: 1, px: 0 }}>
-          <ListItemText primary={"Medicine Name"} />
-          <Typography variant="body2">{medicineName}</Typography>
+        <ListItem key={phone} sx={{ py: 1, px: 0 }}>
+          <ListItemText primary={"Telefone"} />
+          <Typography variant="body2">{phone}</Typography>
+        </ListItem>
+        <ListItem key={cellPhone} sx={{ py: 1, px: 0 }}>
+          <ListItemText primary={"Celular"} />
+          <Typography variant="body2">{cellPhone}</Typography>
         </ListItem>
         <ListItem key={startDate} sx={{ py: 1, px: 0 }}>
           <ListItemText primary={"Starting Date"} />
           <Typography variant="body2">{startDate}</Typography>
         </ListItem>
-        <ListItem key={dailyDosageCount} sx={{ py: 1, px: 0 }}>
-          <ListItemText primary={"Daily Dosage Count"} />
-          <Typography variant="body2">{dailyDosageCount}</Typography>
-        </ListItem>
         <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-          Selected Dosage Time
         </Typography>
-        {dailyOccurrence.map((time) => (
-          <ListItem sx={{ py: 1, px: 0 }}>
-            <ListItemText primary={"Selected Time"} />
-            <Typography variant="body2">
-              {convertTo12HourFormat(time)}
-            </Typography>
-          </ListItem>
-        ))}
       </List>
     </React.Fragment>
   );

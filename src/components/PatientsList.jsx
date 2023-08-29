@@ -8,20 +8,6 @@ import "../App.css"
 const columns: GridColDef[] = [
   { field: 'document_user_id', headerName: 'Document Id', width: 150 },
   {
-    field: 'name',
-    headerName: 'Full name',
-    width: 150,
-    editable: true,
-    headerClassName: 'bold-header',
-  },
-  {
-    field: 'age',
-    headerName: 'Age',
-    width: 150,
-    editable: true,
-    headerClassName: 'bold-header',
-  },
-  {
     field: 'razaoSocial',
     headerName: 'Razão Social',
     width: 150,
@@ -43,10 +29,23 @@ const columns: GridColDef[] = [
     headerClassName: 'bold-header',
   },
   {
-    field: 'dob',
-    headerName: 'Date of Birth',
-    type: 'String',
-    width: 110,
+    field: 'email',
+    headerName: 'Email',
+    width: 150,
+    editable: true,
+    headerClassName: 'bold-header',
+  },
+  {
+    field: 'phone',
+    headerName: 'Telefone',
+    width: 150,
+    editable: true,
+    headerClassName: 'bold-header',
+  },
+  {
+    field: 'cellPhone',
+    headerName: 'Celular',
+    width: 150,
     editable: true,
     headerClassName: 'bold-header',
   },
@@ -54,26 +53,6 @@ const columns: GridColDef[] = [
     field: 'startDate',
     headerName: 'Start Date',
     description: 'This column has a value of Start Date.',
-    sortable: false,
-    width: 160,
-    headerClassName: 'bold-header',
-  },
-  {
-    field: 'dailyOccurence',
-    headerName: 'Daily Occurence',
-    description: 'This column has a value of Daily Occurence.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params: GridValueGetterParams) => {
-      const dailyOccurences = params.row.dailyOccurrence || []
-      return dailyOccurences.join(', ') // Display the array as a comma-separated string
-    },
-    headerClassName: 'bold-header',
-  },
-  {
-    field: 'dailyDosageCount',
-    headerName: 'Daily Dosage Count',
-    description: 'This column has a value of Daily Dosage Count',
     sortable: false,
     width: 160,
     headerClassName: 'bold-header',

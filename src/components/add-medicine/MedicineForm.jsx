@@ -55,16 +55,13 @@ export default function MedicineForm() {
     setUserLoggedIn(loggedInUserId);
   }, []);
   const {
-    name,
     razaoSocial,
     fantasyName,
     cnpj,
-    age,
-    dob,
-    medicineName,
+    email,
+    phone,
+    cellPhone,
     startDate,
-    dailyDosageCount,
-    dailyOccurrence,
     document_user_id,
     user_id,
     fcmToken,
@@ -73,19 +70,15 @@ export default function MedicineForm() {
   const requestObj = {
     razaoSocial,
     cnpj,
-    name,
-    age,
-    dob,
+    email,
+    phone,
+    cellPhone,
     startDate,
-    medicineName,
-    dailyOccurrence,
-    dailyDosageCount,
     user_id,
     fcmToken,
   };
   console.log(requestObj);
 
-  console.log("Daily Occurrence", dailyOccurrence);
   const history = useHistory();
   const [activeStep, setActiveStep] = React.useState(0);
   const [open, setOpen] = React.useState(true);
@@ -99,12 +92,10 @@ export default function MedicineForm() {
       razaoSocial,
       fantasyName,
       cnpj,
-      name,
-      age,
-      dob,
-      medicineName,
+      email,
+      phone,
+      cellPhone,
       startDate,
-      dailyDosageCount,
       fcmToken,
       document_user_id: user_id,
     });
@@ -112,14 +103,9 @@ export default function MedicineForm() {
       !razaoSocial ||
       !fantasyName ||
       !cnpj ||
-      // !name ||
-      !age ||
-      !dob ||
-      !medicineName ||
-      !startDate ||
-      !dailyDosageCount ||
-      !dailyDosageCount
-    ) {
+      !email ||
+      !cellPhone ||
+      !startDate) {
       toast.error("Please Enter All the required fields", {
         position: "top-right",
         autoClose: 5000,
@@ -131,18 +117,6 @@ export default function MedicineForm() {
         theme: "light",
       });
     } else {
-      if (dailyOccurrence.length != dailyDosageCount) {
-        toast.error("Please Add Time according the Daily Count", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else {
         if (activeStep === 1) {
           const storedData = localStorage.getItem("medicineData");
           const existingData = storedData ? JSON.parse(storedData) : {};
@@ -156,12 +130,10 @@ export default function MedicineForm() {
               razaoSocial,
               fantasyName,
               cnpj,
-              name,
-              age,
-              dob,
-              medicineName,
+              email,
+              phone,
+              cellPhone,
               startDate,
-              dailyDosageCount,
               fcmToken,
               document_user_id: entryKey,
             },
@@ -174,7 +146,7 @@ export default function MedicineForm() {
           });
         }
         if (activeStep === 0) setActiveStep(activeStep + 1);
-      }
+      
     }
   };
 

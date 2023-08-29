@@ -1,9 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { Button } from "@mui/material";
 import { IconButton } from "@mui/material";
@@ -15,28 +13,22 @@ import { useEffect } from "react";
 
 export default function DetailForm() {
   const {
-    name,
-    setName,
-    age,
-    setAge,
     razaoSocial,
     setRazaoSocial,
     fantasyName,
     setFantasyName,
     cnpj,
     setCnpj,
-    dob,
-    setDob,
-    medicineName,
-    setMedicineName,
+    email,
+    setEmail,
+    phone,
+    setPhone,
+    cellPhone,
+    setCellPhone,
     startDate,
     setStartDate,
     document_user_id,
     setDocumentUserId,
-    dailyDosageCount,
-    setDailyDosageCount,
-    dailyOccurrence,
-    setDailyOccurrence,
     user_id,
     setUserId,
   } = useContext(AppContext);
@@ -44,29 +36,14 @@ export default function DetailForm() {
   console.log(loggedInUserId);
   setUserId(loggedInUserId);
   console.log(startDate);
-  console.log(dob);
   const today = new Date();
   const formattedToday = today.toISOString().split("T")[0];
   const [currentTime, setCurrentTime] = useState(new Date());
 
-  const handleTimeChange = (index, newTime) => {
-    const updatedTimes = [...dailyOccurrence];
-    updatedTimes[index] = newTime;
-    setDailyOccurrence(updatedTimes);
-  };
   useEffect(() => {
-    setDob(formattedToday);
     setStartDate(formattedToday);
   }, []);
-  const addNewTime = () => {
-    setDailyOccurrence([...dailyOccurrence, ""]);
-  };
 
-  const removeTime = (index) => {
-    const updatedTimes = [...dailyOccurrence];
-    updatedTimes.splice(index, 1);
-    setDailyOccurrence(updatedTimes);
-  };
   return (
     <React.Fragment>
       <Grid container spacing={3}>
@@ -99,19 +76,6 @@ export default function DetailForm() {
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="fantasyName"
-            name="fantasyName"
-            label="Nome Fantasia"
-            fullWidth
-            autoComplete=""
-            variant="standard"
-            value={fantasyName}
-            onChange={(e) => setFantasyName(e.target.value)}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
             id="cnpj"
             name="Cnpj"
             label="Cnpj"
@@ -125,40 +89,40 @@ export default function DetailForm() {
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="patientAge"
-            name="patientAge"
-            label="Patient's Age"
+            id="email"
+            name="email"
+            label="Email"
             fullWidth
-            autoComplete="family-name"
+            autoComplete=""
             variant="standard"
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </Grid>
-
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="dateOfBirth"
-            name="dateOfBirth"
-            label="Date of Birth"
-            type="date"
-            defaultValue={formattedToday}
+            id="phone"
+            name="phone"
+            label="Phone"
             fullWidth
-            autoComplete="Date Of Birth"
-            value={dob}
-            onChange={(e) => setDob(e.target.value)}
+            autoComplete=""
+            variant="standard"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            id="medicineName"
-            name="medicineName"
-            label="Medicine Name *"
+            required
+            id="cellPhone"
+            name="cellPhone"
+            label="Cell Phone"
             fullWidth
+            autoComplete=""
             variant="standard"
-            value={medicineName}
-            onChange={(e) => setMedicineName(e.target.value)}
+            value={cellPhone}
+            onChange={(e) => setCellPhone(e.target.value)}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -173,55 +137,6 @@ export default function DetailForm() {
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
           />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="dailydosage"
-            name="dailydosage"
-            label="Daily Dosage Count"
-            fullWidth
-            variant="standard"
-            value={dailyDosageCount}
-            onChange={(e) => setDailyDosageCount(e.target.value)}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <div>
-            {dailyOccurrence.map((time, index) => (
-              <div
-                key={index}
-                style={{ display: "flex", alignItems: "center" }}
-              >
-                <TextField
-                  required
-                  id={`time-${index}`}
-                  name={`time-${index}`}
-                  type="time"
-                  value={time}
-                  fullWidth
-                  variant="standard"
-                  InputProps={{ inputProps: { step: 60 } }} // Set step to 1 minute
-                  onChange={(event) =>
-                    handleTimeChange(index, event.target.value)
-                  }
-                />
-                <IconButton aria-label="delete" size="large">
-                  <DeleteIcon
-                    fontSize="inherit"
-                    onClick={() => removeTime(index)}
-                  />
-                </IconButton>
-              </div>
-            ))}
-            <Button
-              style={{ marginRight: "130px" }}
-              variant="outlined"
-              onClick={addNewTime}
-            >
-              Add Time
-            </Button>
-          </div>
         </Grid>
         <Grid item xs={12}></Grid>
       </Grid>
