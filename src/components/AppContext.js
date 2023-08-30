@@ -12,7 +12,19 @@ export function AppContextProvider({ children }) {
   const [startDate, setStartDate] = useState();
   const [document_user_id, setDocumentUserId] = useState();
   const [user_id, setUserId] = useState("");
-  // ... other states
+  const [address, setAddress] = useState({
+    logradouro: "",
+    bairro: "",
+    cidade: "",
+    estado: "",
+  });
+  const [cep, setCep] = useState("");
+  const [houseNumber, setHouseNumber] = useState(0)
+  const [complement, setComplement] = useState("")
+  const [geolocation, setGeolocation] = useState({
+    latitude: "",
+    longitude: ""
+  })
 
   return (
     <AppContext.Provider
@@ -35,6 +47,16 @@ export function AppContextProvider({ children }) {
         setDocumentUserId,
         user_id,
         setUserId,
+        address,
+        setAddress,
+        cep,
+        setCep,
+        complement,
+        setComplement,
+        houseNumber,
+        setHouseNumber,
+        geolocation,
+        setGeolocation
         // ... other state and setter pairs
       }}
     >

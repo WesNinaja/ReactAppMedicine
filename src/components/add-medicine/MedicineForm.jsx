@@ -29,8 +29,6 @@ import { useContext } from "react";
 import { AppContext } from "../AppContext";
 import { ToastContainer, toast } from "react-toastify";
 import { useEffect } from "react";
-import axios from "axios";
-import { API_ENDPOINTS } from "../ApiEndpoints";
 
 const steps = ["PATIENT'S INFOMATION", "REVIEW DETAILS"];
 
@@ -61,10 +59,14 @@ export default function MedicineForm() {
     email,
     phone,
     cellPhone,
+    address,
+    cep,
+    houseNumber,
+    complement,
+    geolocation,
     startDate,
     document_user_id,
     user_id,
-    fcmToken,
   } = useContext(AppContext);
 
   const requestObj = {
@@ -73,9 +75,13 @@ export default function MedicineForm() {
     email,
     phone,
     cellPhone,
+    address,
+    cep,
+    houseNumber,
+    complement,
+    geolocation,
     startDate,
     user_id,
-    fcmToken,
   };
   console.log(requestObj);
 
@@ -95,8 +101,12 @@ export default function MedicineForm() {
       email,
       phone,
       cellPhone,
+      address,
+      cep,
+      houseNumber,
+      complement,
+      geolocation,
       startDate,
-      fcmToken,
       document_user_id: user_id,
     });
     if (
@@ -105,7 +115,11 @@ export default function MedicineForm() {
       !cnpj ||
       !email ||
       !cellPhone ||
-      !startDate) {
+      !houseNumber ||
+      !geolocation ||
+      !address ||
+      !startDate
+    ) {
       toast.error("Please Enter All the required fields", {
         position: "top-right",
         autoClose: 5000,
@@ -117,36 +131,39 @@ export default function MedicineForm() {
         theme: "light",
       });
     } else {
-        if (activeStep === 1) {
-          const storedData = localStorage.getItem("medicineData");
-          const existingData = storedData ? JSON.parse(storedData) : {};
-  
-          // Gerar um ID aleatório se o user_id estiver nulo
-          const entryKey = user_id || `temp-id-${Date.now()}`;
-  
-          const newData = {
-            ...existingData,
-            [entryKey]: {
-              razaoSocial,
-              fantasyName,
-              cnpj,
-              email,
-              phone,
-              cellPhone,
-              startDate,
-              fcmToken,
-              document_user_id: entryKey,
-            },
-          };
-  
-          localStorage.setItem("medicineData", JSON.stringify(newData));
-  
-          toast.success("Data saved to localStorage", {
-            // ... configurações do toast ...
-          });
-        }
-        if (activeStep === 0) setActiveStep(activeStep + 1);
-      
+      if (activeStep === 1) {
+        const storedData = localStorage.getItem("medicineData");
+        const existingData = storedData ? JSON.parse(storedData) : {};
+
+        // Gerar um ID aleatório se o user_id estiver nulo
+        const entryKey = user_id || `temp-id-${Date.now()}`;
+
+        const newData = {
+          ...existingData,
+          [entryKey]: {
+            razaoSocial,
+            fantasyName,
+            cnpj,
+            email,
+            phone,
+            cellPhone,
+            address,
+            cep,
+            houseNumber,
+            complement,
+            geolocation,
+            startDate,
+            document_user_id: entryKey,
+          },
+        };
+
+        localStorage.setItem("medicineData", JSON.stringify(newData));
+
+        toast.success("Data saved to localStorage", {
+          // ... configurações do toast ...
+        });
+      }
+      if (activeStep === 0) setActiveStep(activeStep + 1);
     }
   };
 

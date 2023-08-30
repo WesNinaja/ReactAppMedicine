@@ -15,6 +15,11 @@ export default function Review() {
     email,
     phone,
     cellPhone,
+    address,
+    cep,
+    houseNumber,
+    complement,
+    geolocation,
     startDate,
     document_user_id,
     medicineDuration
@@ -62,6 +67,38 @@ export default function Review() {
         <ListItem key={cellPhone} sx={{ py: 1, px: 0 }}>
           <ListItemText primary={"Celular"} />
           <Typography variant="body2">{cellPhone}</Typography>
+        </ListItem>
+        <ListItem key={cep} sx={{ py: 1, px: 0 }}>
+          <ListItemText primary={"CEP"} />
+          <Typography variant="body2">{cep}</Typography>
+        </ListItem>
+        <ListItem key={address.logradouro} sx={{ py: 1, px: 0 }}>
+          <ListItemText primary={"Rua"} />
+          <Typography variant="body2">{address.logradouro}</Typography>
+        </ListItem>
+        <ListItem key={address.bairro} sx={{ py: 1, px: 0 }}>
+          <ListItemText primary={"Bairro"} />
+          <Typography variant="body2">{address.bairro}</Typography>
+        </ListItem>
+        <ListItem key={address.cidade} sx={{ py: 1, px: 0 }}>
+          <ListItemText primary={"Cidade"} />
+          <Typography variant="body2">{address.cidade}</Typography>
+        </ListItem>
+        <ListItem key={address.estado} sx={{ py: 1, px: 0 }}>
+          <ListItemText primary={"Estado"} />
+          <Typography variant="body2">{address.estado}</Typography>
+        </ListItem>
+        <ListItem key={houseNumber} sx={{ py: 1, px: 0 }}>
+          <ListItemText primary={"Número"} />
+          <Typography variant="body2">{houseNumber}</Typography>
+        </ListItem>
+        <ListItem key={geolocation.latitude} sx={{ py: 1, px: 0 }}>
+          <ListItemText primary={"Latitude"} />
+          <Typography variant="body2">{geolocation.latitude}</Typography>
+        </ListItem>
+        <ListItem key={geolocation.longitude} sx={{ py: 1, px: 0 }}>
+          <ListItemText primary={"Longitude"} />
+          <Typography variant="body2">{geolocation.longitude}</Typography>
         </ListItem>
         <ListItem key={startDate} sx={{ py: 1, px: 0 }}>
           <ListItemText primary={"Starting Date"} />

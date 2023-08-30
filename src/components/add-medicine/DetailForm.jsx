@@ -10,6 +10,7 @@ import Review from "./ReviewForm";
 import { useContext } from "react";
 import { AppContext } from "../AppContext";
 import { useEffect } from "react";
+import axios from "axios";
 
 export default function DetailForm() {
   const {
@@ -27,11 +28,22 @@ export default function DetailForm() {
     setCellPhone,
     startDate,
     setStartDate,
+    cep,
+    setCep,
+    address,
+    setAddress,
+    houseNumber,
+    setHouseNumber,
+    complement,
+    setComplement,
+    geolocation,
+    setGeolocation,
     document_user_id,
     setDocumentUserId,
     user_id,
     setUserId,
   } = useContext(AppContext);
+
   const loggedInUserId = sessionStorage.getItem("loggedInUserId");
   console.log(loggedInUserId);
   setUserId(loggedInUserId);
@@ -39,6 +51,37 @@ export default function DetailForm() {
   const today = new Date();
   const formattedToday = today.toISOString().split("T")[0];
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [cepNotFound, setCepNotFound] = useState(false);
+
+  const buscarEnderecoPorCep = async (cep) => {
+    try {
+      const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = response.data;
+
+      // Verifica se a resposta possui a propriedade "erro"
+      if (data.erro) {
+        setCepNotFound(true); // Marca o status de CEP não encontrado
+      } else {
+        // Caso contrário, preenche o endereço
+        setAddress({
+          logradouro: data.logradouro,
+          bairro: data.bairro,
+          cidade: data.localidade,
+          estado: data.uf,
+        });
+        setCepNotFound(false); // Reseta o status de CEP não encontrado
+      }
+    } catch (error) {
+      console.error("Erro ao buscar endereço pelo CEP:", error);
+      setCepNotFound(true); // Marca o status de CEP não encontrado
+    }
+  };
+
+  const cepNotFoundMessage = (
+    <p style={{ color: "red" }}>
+      CEP não encontrado. Edite os campos de endereço manualmente.
+    </p>
+  );
 
   useEffect(() => {
     setStartDate(formattedToday);
@@ -136,6 +179,137 @@ export default function DetailForm() {
             fullWidth
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="cep"
+            name="cep"
+            label="CEP"
+            fullWidth
+            autoComplete=""
+            variant="standard"
+            value={cep}
+            onChange={(e) => {
+              setCep(e.target.value);
+              setCepNotFound(false); // Reseta o status de CEP não encontrado
+              // Buscar endereço quando o CEP for digitado
+              if (e.target.value.length === 8) {
+                buscarEnderecoPorCep(e.target.value);
+              }
+            }}
+          />
+          {cepNotFound && cepNotFoundMessage}
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="logradouro"
+            name="logradouro"
+            label="Logradouro/Endereço"
+            fullWidth
+            autoComplete=""
+            variant="standard"
+            value={address.logradouro}
+            disabled={cepNotFound}
+            onBlur={() => setCepNotFound(true)} // Desativa o onChange se o CEP não for encontrado
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="bairro"
+            name="bairro"
+            label="Bairro"
+            fullWidth
+            autoComplete=""
+            variant="standard"
+            value={address.bairro}
+            disabled={cepNotFound}
+            onBlur={() => setCepNotFound(true)} // Desativa o onChange se o CEP não for encontrado
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="cidade"
+            name="cidade"
+            label="Cidade"
+            fullWidth
+            autoComplete=""
+            variant="standard"
+            value={address.cidade}
+            disabled={cepNotFound}
+            onBlur={() => setCepNotFound(true)} // Desativa o onChange se o CEP não for encontrado
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="estado"
+            name="estado"
+            label="Estado"
+            fullWidth
+            autoComplete=""
+            variant="standard"
+            value={address.estado}
+            disabled={cepNotFound}
+            onBlur={() => setCepNotFound(true)} // Desativa o onChange se o CEP não for encontrado
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="houseNumber"
+            name="houseNumber"
+            label="Numero da Casa"
+            fullWidth
+            autoComplete=""
+            variant="standard"
+            value={houseNumber}
+            onChange={(e) => setHouseNumber(e.target.value)}
+            disabled={cepNotFound || !address.logradouro} // Desativa se o CEP não for encontrado ou se o endereço não for preenchido
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="complement"
+            name="complement"
+            label="Complement"
+            fullWidth
+            autoComplete=""
+            variant="standard"
+            value={complement}
+            onChange={(e) => setComplement(e.target.value)}
+          />
+        </Grid>
+        
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="longitude"
+            name="longitude"
+            label="Longitude"
+            fullWidth
+            autoComplete=""
+            variant="standard"
+            value={geolocation.longitude}
+            onChange={(e) => setGeolocation({ longitude: e.target.value })}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="latitude"
+            name="latitude"
+            label="Latitude"
+            fullWidth
+            autoComplete=""
+            variant="standard"
+            value={geolocation.latitude}
+            onChange={(e) => setGeolocation({ latitude: e.target.value })}
           />
         </Grid>
         <Grid item xs={12}></Grid>

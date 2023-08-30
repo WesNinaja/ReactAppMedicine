@@ -50,6 +50,55 @@ const columns: GridColDef[] = [
     headerClassName: 'bold-header',
   },
   {
+    field: 'cep',
+    headerName: 'Cep',
+    width: 150,
+    editable: true,
+    headerClassName: 'bold-header',
+  },
+  {
+    field: 'logradouro',
+    headerName: 'Logradouro',
+    width: 150,
+    editable: true,
+    headerClassName: 'bold-header',
+  },
+  {
+    field: 'bairro',
+    headerName: 'Bairro',
+    width: 150,
+    editable: true,
+    headerClassName: 'bold-header',
+  },
+  {
+    field: 'cidade',
+    headerName: 'Cidade',
+    width: 150,
+    editable: true,
+    headerClassName: 'bold-header',
+  },
+  {
+    field: 'estado',
+    headerName: 'Estado',
+    width: 150,
+    editable: true,
+    headerClassName: 'bold-header',
+  },
+  {
+    field: 'longitude',
+    headerName: 'Longitude',
+    width: 150,
+    editable: true,
+    headerClassName: 'bold-header',
+  },
+  {
+    field: 'latitude',
+    headerName: 'Latitude',
+    width: 150,
+    editable: true,
+    headerClassName: 'bold-header',
+  },
+  {
     field: 'startDate',
     headerName: 'Start Date',
     description: 'This column has a value of Start Date.',
@@ -67,9 +116,8 @@ const columns: GridColDef[] = [
 ]
 
 export default function PatientsList () {
-  const [rows, setRows] = useState([])
-  console.log('ROWS', rows)
-  
+  const [rows, setRows] = useState([]);
+
   const fetchDataFromLocalStorage = () => {
     const storedData = localStorage.getItem("medicineData");
 
@@ -77,10 +125,21 @@ export default function PatientsList () {
       const parsedData = JSON.parse(storedData);
       const dataArray = Object.values(parsedData);
 
-      const rowsWithIds = dataArray.map((entry, index) => ({
-        ...entry,
-        document_user_id: entry.document_user_id || `temp-id-${index}`,
-      }));
+      const rowsWithIds = dataArray.map((entry, index) => {
+        const address = entry.address || {};
+        const geolocation = entry.geolocation || {};
+
+        return {
+          ...entry,
+          document_user_id: entry.document_user_id || `temp-id-${index}`,
+          logradouro: address.logradouro || "",
+          bairro: address.bairro || "",
+          cidade: address.cidade || "",
+          estado: address.estado || "",
+          latitude: geolocation.latitude || "", // Adiciona a latitude
+          longitude: geolocation.longitude || "", // Adiciona a longitude
+        };
+      });
 
       setRows(rowsWithIds);
     } else {
@@ -117,24 +176,7 @@ export default function PatientsList () {
     }
   };
 
-  useEffect(() => {
-    const storedData = localStorage.getItem('medicineData');
 
-  if (storedData) {
-    const parsedData = JSON.parse(storedData);
-
-    // Transforme o objeto em uma matriz de entradas
-    const dataArray = Object.values(parsedData);
-
-    // Adicione IDs únicos para as entradas sem document_user_id
-    const rowsWithIds = dataArray.map((entry, index) => ({
-      ...entry,
-      document_user_id: entry.document_user_id || `temp-id-${index}`,
-    }));
-
-    setRows(rowsWithIds);
-    }
-  }, []);
   return (
     <>
       <ToastContainer />
