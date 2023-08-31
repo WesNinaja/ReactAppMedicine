@@ -40,4 +40,4 @@ Contribuições são bem-vindas! Se você encontrar um problema ou quiser adicio
 
 ## Contato
 
-Se você tiver alguma dúvida ou sugestão, entre em contato.
+Se você tiver alguma dúvida ou sugestão, entre em contato no meu e-mail ninajabruna@gmail.com
