@@ -1,5 +1,5 @@
 {
-  "name": "react-health-app",
+  "name": "medication-management",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -20,8 +20,10 @@
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.9",
     "firebase": "^10.1.0",
+    "leaflet": "^1.9.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-leaflet": "^4.2.1",
     "react-loader-spinner": "^5.3.4",
     "react-router-dom": "^5.3.4",
     "react-scripts": "5.0.1",

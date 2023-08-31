@@ -41,7 +41,7 @@ function getMedicineStepContent(step) {
   }
 }
 const defaultTheme = createTheme();
-const drawerWidth = 240;
+const drawerWidth = 280;
 
 export default function MedicineForm() {
   const [loggedInUserId, setUserLoggedIn] = React.useState();
@@ -233,7 +233,7 @@ export default function MedicineForm() {
                   noWrap
                   sx={{ flexGrow: 1 }}
                 >
-                  Health App
+                  Medication Management
                 </Typography>
                 <IconButton color="inherit">
                   <ExitToAppIcon onClick={() => handleLogout()} />

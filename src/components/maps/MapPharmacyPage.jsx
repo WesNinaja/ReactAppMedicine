@@ -10,6 +10,7 @@ import {
   Toolbar,
   Divider,
   List,
+  Icon,
   ListItem,
   ListItemIcon,
   ListItemText,
@@ -18,48 +19,37 @@ import {
   Drawer,
   TextField,
 } from "@mui/material";
-import MedicineDetailsPage from "./MedicineDetailsPage";
-import { mainListItems } from "./listItems";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import { mainListItems } from "../listItems";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import MenuIcon from "@mui/icons-material/Menu";
+import LocalPharmacy from "@mui/icons-material/LocalPharmacy";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import { ToastContainer } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import "leaflet/dist/leaflet.css";
 
 const defaultTheme = createTheme();
 const drawerWidth = 280;
 
-export default function MedicineListPage() {
-  const [medicineData, setMedicineData] = useState({});
-  const [selectedMedicine, setSelectedMedicine] = useState(null);
-  const [openModal, setOpenModal] = useState(false);
+export default function MapPharmacyPage() {
+  const [pharmacyData, setPharmacyData] = useState({});
   const [open, setOpen] = React.useState(true);
-  const [searchTerm, setSearchTerm] = useState(""); // Estado para o termo de busca
-  const [filteredMedicineData, setFilteredMedicineData] = useState({}); // Estado para os dados filtrados
   const history = useHistory();
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
   useEffect(() => {
-    const storedData = localStorage.getItem("medicineData");
+    const storedData = localStorage.getItem("pharmacyData");
     const parsedData = storedData ? JSON.parse(storedData) : {};
-    setMedicineData(parsedData);
-    setFilteredMedicineData(parsedData); // Inicialmente, os dados filtrados são os mesmos que os dados brutos
+    setPharmacyData(parsedData);
   }, []);
-
-  const handleMedicineClick = (medicineId) => {
-    setSelectedMedicine(medicineData[medicineId]);
-    setOpenModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  };
 
   const handleLogout = () => {
     sessionStorage.removeItem("email");
@@ -68,43 +58,9 @@ export default function MedicineListPage() {
     }, 2000);
   };
 
-  const handleSearch = () => {
-    const filteredData = Object.keys(medicineData).reduce(
-      (filtered, medicineId) => {
-        const medicine = medicineData[medicineId];
-        if (
-          medicine.medicineName
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase()) ||
-          medicine.labName.toLowerCase().includes(searchTerm.toLowerCase())
-        ) {
-          filtered[medicineId] = medicine;
-        }
-        return filtered;
-      },
-      {}
-    );
-    setFilteredMedicineData(filteredData);
-  };
-
-  const handleFilter = () => {
-    const filteredData = Object.keys(medicineData).reduce(
-      (filtered, medicineId) => {
-        const medicine = medicineData[medicineId];
-        if (
-          medicine.medicineName
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase()) ||
-          medicine.labName.toLowerCase().includes(searchTerm.toLowerCase())
-        ) {
-          filtered[medicineId] = medicine;
-        }
-        return filtered;
-      },
-      {}
-    );
-    setFilteredMedicineData(filteredData);
-  };
+ 
+  const centerOfSaoPaulo = [-23.55052, -46.633308]; // Coordenadas do centro de São Paulo
+  const defaultZoomForSaoPaulo = 7; // Nível de zoom para exibir o estado inteiro
 
   const Drawer = styled(MuiDrawer, {
     shouldForwardProp: (prop) => prop !== "open",
@@ -238,87 +194,62 @@ export default function MedicineListPage() {
                   variant="outlined"
                   sx={{ p: { xs: 2, md: 3 }, width: "100%" }}
                 >
-                  <Typography component="h1" variant="h4" align="center">
-                    Lista de Medicamentos
-                  </Typography>
-                  {/* Barra de Busca */}
-                  <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    mt={2}
+                  <Typography
+                    component="h1"
+                    variant="h4"
+                    align="center"
+                    sx={{ marginBottom: 2 }}
                   >
-                    <TextField
-                      label="Buscar medicamento"
-                      variant="outlined"
-                      size="medium"
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      sx={{ width: 300 }} // Aumentar a largura da barra de pesquisa
+                    Mapa de Farmácias
+                  </Typography>
+                  <MapContainer
+                    center={centerOfSaoPaulo}
+                    zoom={defaultZoomForSaoPaulo}
+                    style={{ width: "100%", height: "600px" }}
+                  >
+                    <TileLayer
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     />
-                    {/* Botão de Pesquisa */}
-                    <Button variant="outlined" onClick={handleSearch}>
-                      Pesquisar
-                    </Button>
-                  </Box>
+                    {Object.keys(pharmacyData).map((pharmacyId) => {
+                      const pharmacy = pharmacyData[pharmacyId];
+                      const position = [
+                        Number(pharmacy.geolocation.latitude),
+                        Number(pharmacy.geolocation.longitude),
+                      ];
+
+                      return (
+                        <Marker
+                          key={pharmacyId}
+                          position={position}
+                          icon={L.icon({
+                            iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+                            iconSize: [25, 41],
+                            iconAnchor: [12, 41],
+                          })}
+                        >
+                          <Popup>
+                            <div>
+                              <h2>{pharmacy.razaoSocial}</h2>
+                              <p>CNPJ: {pharmacy.cnpj}</p>
+                              <p>Celular: {pharmacy.cellPhone}</p>
+                              {/* Adicione outras informações da farmácia aqui */}
+                            </div>
+                          </Popup>
+                        </Marker>
+                      );
+                    })}
+                  </MapContainer>
                   <Box
                     display="grid"
                     gridTemplateColumns="repeat(auto-fill, minmax(250px, 1fr))"
                     gap="16px"
                     mt={3}
-                    width="100%" // Adição
-                  >
-                    {Object.keys(filteredMedicineData).map((medicineId) => (
-                      <Card key={medicineId} sx={{ width: "100%" }}>
-                        <CardContent>
-                          <Box
-                            display="flex"
-                            flexDirection="column"
-                            alignItems="center"
-                          >
-                            <ListItemIcon sx={{ alignSelf: "flex-end" }}>
-                              <LocalHospitalIcon />
-                            </ListItemIcon>
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                                textAlign: "center",
-                              }}
-                            >
-                              <Typography
-                                variant="h6"
-                                sx={{ maxWidth: 200, fontWeight: "bold" }}
-                              >
-                                {medicineData[medicineId].medicineName}
-                              </Typography>
-                              <Typography>
-                                Lab: {medicineData[medicineId].labName}
-                              </Typography>
-                              <Typography>
-                                Dosagem: {medicineData[medicineId].dosage}
-                              </Typography>
-                              <Button
-                                onClick={() => handleMedicineClick(medicineId)}
-                              >
-                                Detalhes
-                              </Button>
-                            </div>
-                          </Box>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </Box>
+                    width="100%"
+                  ></Box>
                 </Paper>
               </Container>
             </Box>
-            {/* Adicione o componente MedicineDetailsPage aqui */}
-            <MedicineDetailsPage
-              selectedMedicine={selectedMedicine}
-              open={openModal}
-              onClose={handleCloseModal}
-            />
           </Box>
         </React.Fragment>
       </ThemeProvider>

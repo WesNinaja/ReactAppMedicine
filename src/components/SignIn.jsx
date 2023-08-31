@@ -52,7 +52,7 @@ export default function SignInSide() {
       sessionStorage.setItem("email", email);
 
       setTimeout(() => {
-        history.push("/dashboard"); // Redirect to map page
+        history.push("/maps"); // Redirect to map page
       }, 2000);
     }
   };

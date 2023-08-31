@@ -23,7 +23,7 @@ import { useHistory } from "react-router-dom";
 import NotFound from "./NotFound";
 import PharmacyList from "./PharmacyList";
 
-const drawerWidth = 240;
+const drawerWidth = 280;
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== "open",
@@ -124,7 +124,7 @@ export default function Dashboard() {
                     noWrap
                     sx={{ flexGrow: 1 }}
                   >
-                    Health App
+                    Medication Management
                   </Typography>
                   <IconButton color="inherit">
                     <ExitToAppIcon onClick={() => handleLogout()} />

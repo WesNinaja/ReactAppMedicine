@@ -15,9 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "./firebase";
-import {useHistory} from "react-router-dom"
+import { useHistory } from "react-router-dom";
 function Copyright(props) {
   return (
     <Typography
@@ -41,7 +39,6 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-
   const history = useHistory();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -51,12 +48,7 @@ export default function SignUp() {
   console.log(firstName);
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !password
-    ) {
+    if (!firstName || !lastName || !email || !password) {
       toast.error("Please Fill All the Fields", {
         position: "top-right",
         autoClose: 5000,
@@ -67,53 +59,24 @@ export default function SignUp() {
         progress: undefined,
         theme: "light",
       });
-    }
-    else{
- await createUserWithEmailAndPassword(auth, email, password)
-   .then(async (res) => {
-     await updateProfile(res.user, {
-       displayName: firstName + lastName,
-     });
-     console.log(res);
-     if (res) {
-       await toast.success("User Created Successfully", {
-         position: "top-right",
-         autoClose: 5000,
-         hideProgressBar: false,
-         closeOnClick: true,
-         pauseOnHover: true,
-         draggable: true,
-         progress: undefined,
-         theme: "light",
-       });
-       sessionStorage.setItem("token",res.user.accessToken);
-       setTimeout(() => {
-         history.push("/dashboard");
-       }, 2000);
-     }
-   })
-   .catch((err) => {
-     console.log(err.message);
-      toast.error(err.message, {
-       position: "top-right",
-       autoClose: 5000,
-       hideProgressBar: false,
-       closeOnClick: true,
-       pauseOnHover: true,
-       draggable: true,
-       progress: undefined,
-       theme: "light",
-     });
-     console.log(err);
-   });
-    }
-   
+    } else {
+      // Mostrar mensagem de sucesso
+      toast.success("User registered successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
 
-    // const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
+      // Redirecionar para a página de login
+      setTimeout(() => {
+        history.push("/"); // Ou o caminho da sua página de login
+      }, 2000);
+    }
   };
 
   return (
