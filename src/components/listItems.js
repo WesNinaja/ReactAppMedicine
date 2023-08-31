@@ -13,12 +13,26 @@ import { NavLink } from "react-router-dom/cjs/react-router-dom";
 
 export const mainListItems = (
   <React.Fragment>
-    <NavLink to="/dashboard" style={{ textDecoration: "none", color: "inherit" }}>
+    <NavLink
+      to="/dashboard"
+      style={{ textDecoration: "none", color: "inherit" }}
+    >
       <ListItemButton>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
+      </ListItemButton>
+    </NavLink>
+    <NavLink
+      to="/add-pharmacy"
+      style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}
+    >
+      <ListItemButton>
+        <ListItemIcon>
+          <AddIcon />
+        </ListItemIcon>
+        <ListItemText primary="Nova Farmácia" />
       </ListItemButton>
     </NavLink>
     <NavLink
@@ -29,7 +43,18 @@ export const mainListItems = (
         <ListItemIcon>
           <AddIcon />
         </ListItemIcon>
-        <ListItemText primary="Add New Dosage" />
+        <ListItemText primary="Novo Medicamento" />
+      </ListItemButton>
+    </NavLink>
+    <NavLink
+      to="/medicine-page"
+      style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}
+    >
+      <ListItemButton>
+        <ListItemIcon>
+          <AddIcon />
+        </ListItemIcon>
+        <ListItemText primary="Lista de medicamentos" />
       </ListItemButton>
     </NavLink>
   </React.Fragment>

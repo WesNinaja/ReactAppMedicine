@@ -21,7 +21,7 @@ import { mainListItems } from "./listItems";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { useHistory } from "react-router-dom";
 import NotFound from "./NotFound";
-import PatientsList from "./PatientsList";
+import PharmacyList from "./PharmacyList";
 
 const drawerWidth = 240;
 
@@ -165,7 +165,7 @@ export default function Dashboard() {
                 <Toolbar />
                 <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                   <Grid container spacing={3}>
-                  <PatientsList />
+                  <PharmacyList />
                   </Grid>
                 </Container>
               </Box>

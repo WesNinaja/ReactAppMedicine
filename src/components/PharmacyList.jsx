@@ -85,15 +85,15 @@ const columns: GridColDef[] = [
     headerClassName: 'bold-header',
   },
   {
-    field: 'longitude',
-    headerName: 'Longitude',
+    field: 'latitude',
+    headerName: 'Latitude',
     width: 150,
     editable: true,
     headerClassName: 'bold-header',
   },
   {
-    field: 'latitude',
-    headerName: 'Latitude',
+    field: 'longitude',
+    headerName: 'Longitude',
     width: 150,
     editable: true,
     headerClassName: 'bold-header',
@@ -115,11 +115,11 @@ const columns: GridColDef[] = [
   }
 ]
 
-export default function PatientsList () {
+export default function PharmacyList () {
   const [rows, setRows] = useState([]);
 
   const fetchDataFromLocalStorage = () => {
-    const storedData = localStorage.getItem("medicineData");
+    const storedData = localStorage.getItem("pharmacyData");
 
     if (storedData) {
       const parsedData = JSON.parse(storedData);
@@ -153,7 +153,7 @@ export default function PatientsList () {
 
   var handleDelete = (params: GridValueGetterParams) => {
     const rowId = params.row.document_user_id;
-    const storedData = localStorage.getItem("medicineData");
+    const storedData = localStorage.getItem("pharmacyData");
     if (storedData) {
       const parsedData = JSON.parse(storedData);
       const newData = { ...parsedData };
@@ -163,14 +163,14 @@ export default function PatientsList () {
       console.log(rowId);
       delete newData[rowId];
   
-      localStorage.setItem("medicineData", JSON.stringify(newData));
-      toast.success("Patient deleted from localStorage", {
+      localStorage.setItem("pharmacyData", JSON.stringify(newData));
+      toast.success("Pharmacy deleted from localStorage", {
         // ... toast configurations ...
       });
   
       fetchDataFromLocalStorage(); // Fetch updated data after deletion
     } else {
-      toast.error("Patient not found in localStorage", {
+      toast.error("Pharmacy not found in localStorage", {
         // ... toast configurations ...
       });
     }

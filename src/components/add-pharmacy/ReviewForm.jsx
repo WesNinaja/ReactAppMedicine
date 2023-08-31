@@ -22,7 +22,6 @@ export default function Review() {
     geolocation,
     startDate,
     document_user_id,
-    medicineDuration
   } = useContext(AppContext);
   console.log(startDate);
   function convertTo12HourFormat(time24) {
@@ -41,7 +40,7 @@ export default function Review() {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Patient's Details
+        Detalhes da Farmácia
       </Typography>
       <List disablePadding>
         <ListItem key={razaoSocial} sx={{ py: 1, px: 0 }}>

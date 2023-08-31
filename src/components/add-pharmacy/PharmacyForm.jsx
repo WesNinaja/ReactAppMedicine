@@ -8,9 +8,10 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
-import MedicineDetailForm from "./MedicineDetailForm"; // Novo componente para detalhes de medicamento
-import MedicineReviewForm from "./MedicineReviewForm"; // Novo componente para revisão de medicamento
+import DetailForm from "./DetailForm";
+import Review from "./ReviewForm";
 import IconButton from "@mui/material/IconButton";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { useHistory } from "react-router-dom";
@@ -30,12 +31,12 @@ import { useEffect } from "react";
 
 const steps = ["INFORMAÇÕES", "REVISÃO"];
 
-function getMedicineStepContent(step) {
+function getStepContent(step) {
   switch (step) {
     case 0:
-      return <MedicineDetailForm />;
+      return <DetailForm />;
     case 1:
-      return <MedicineReviewForm />;
+      return <Review />;
     default:
       throw new Error("Unknown step");
   }
@@ -43,7 +44,7 @@ function getMedicineStepContent(step) {
 const defaultTheme = createTheme();
 const drawerWidth = 240;
 
-export default function MedicineForm() {
+export default function PharmacyForm() {
   const [loggedInUserId, setUserLoggedIn] = React.useState();
 
   useEffect(() => {
@@ -52,27 +53,36 @@ export default function MedicineForm() {
   }, []);
 
   const {
-    medicineName,
-    labName,
-    dosage,
-    price,
-    medicineType,
-    description,
+    razaoSocial,
+    fantasyName,
+    cnpj,
+    email,
+    phone,
+    cellPhone,
+    address,
+    cep,
+    houseNumber,
+    complement,
+    geolocation,
+    startDate,
     document_user_id,
     user_id,
   } = useContext(AppContext);
 
   const requestObj = {
-    medicineName,
-    labName,
-    dosage,
-    price,
-    medicineType,
-    description,
+    razaoSocial,
+    cnpj,
+    email,
+    phone,
+    cellPhone,
+    address,
+    cep,
+    houseNumber,
+    complement,
+    geolocation,
+    startDate,
     user_id,
   };
-
-  console.log(requestObj);
 
   const history = useHistory();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -85,11 +95,19 @@ export default function MedicineForm() {
     setOpen(!open);
   };
 
-  const handleMedicineNext = async () => {
-    // Validação dos campos obrigatórios de medicamento
-    console.log(activeStep)
-    if (!medicineType) {
-      toast.error("Por favor, preencha todos os campos obrigatórios", {
+  const handleNext = async () => {
+    if (
+      !razaoSocial ||
+      !fantasyName ||
+      !cnpj ||
+      !email ||
+      !cellPhone ||
+      !houseNumber ||
+      !geolocation ||
+      !address ||
+      !startDate
+    ) {
+      toast.error("Please Enter All the required fields", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -102,37 +120,40 @@ export default function MedicineForm() {
     } else {
       if (activeStep === 1) {
         try {
-          const storedData = localStorage.getItem("medicineData");
+          const storedData = localStorage.getItem("pharmacyData");
           const existingData = storedData ? JSON.parse(storedData) : {};
 
-          // Gerar um ID aleatório para o medicamento
-          const medicineId = `med-${Date.now()}`;
-
-          const newMedicine = {
-            medicineName,
-            labName,
-            dosage,
-            description,
-            price,
-            medicineType,
-            document_user_id: medicineId
-            // Outras informações relevantes do medicamento
-          };
+          // Gerar um ID aleatório se o user_id estiver nulo
+          const entryKey = user_id || `temp-id-${Date.now()}`;
 
           const newData = {
             ...existingData,
-            [medicineId]: newMedicine,
+            [entryKey]: {
+              razaoSocial,
+              fantasyName,
+              cnpj,
+              email,
+              phone,
+              cellPhone,
+              address,
+              cep,
+              houseNumber,
+              complement,
+              geolocation,
+              startDate,
+              document_user_id: entryKey,
+            },
           };
 
-          localStorage.setItem("medicineData", JSON.stringify(newData));
+          localStorage.setItem("pharmacyData", JSON.stringify(newData));
 
-          toast.success("Medicamento cadastrado com sucesso!", {
-            // Configurações do toast
+          toast.success("Farmácia cadastrada com sucesso!", {
+            // ... configurações do toast ...
           });
 
           setShowSuccessMessage(true);
         } catch (error) {
-          toast.error("Ocorreu um erro ao cadastrar o medicamento.", {
+          toast.error("Ocorreu um erro ao cadastrar a farmácia.", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -278,7 +299,7 @@ export default function MedicineForm() {
                   sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
                 >
                   <Typography component="h1" variant="h4" align="center">
-                    Novo Medicamento
+                    Nova Farmácia
                   </Typography>
                   <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
                     {steps.map((label) => (
@@ -291,22 +312,23 @@ export default function MedicineForm() {
                     <React.Fragment>
                       <Typography variant="h5" gutterBottom>
                         {showSuccessMessage
-                          ? "Medicamento cadastrado com sucesso!"
+                          ? "Farmácia cadastrada com sucesso!"
                           : "Obrigado por cadastrar as informações!"}{" "}
                       </Typography>
                     </React.Fragment>
                   ) : (
                     <React.Fragment>
-                      {getMedicineStepContent(activeStep)}
+                      {getStepContent(activeStep)}
                       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                         {activeStep !== 0 && (
                           <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
                             Voltar
                           </Button>
                         )}
+
                         <Button
                           variant="contained"
-                          onClick={handleMedicineNext}
+                          onClick={handleNext}
                           sx={{ mt: 3, ml: 1 }}
                         >
                           {activeStep === steps.length - 1

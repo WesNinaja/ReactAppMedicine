@@ -2,11 +2,6 @@ import * as React from "react";
 import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import Checkbox from "@mui/material/Checkbox";
-import { Button } from "@mui/material";
-import { IconButton } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import Review from "./ReviewForm";
 import { useContext } from "react";
 import { AppContext } from "../AppContext";
 import { useEffect } from "react";
@@ -50,7 +45,6 @@ export default function DetailForm() {
   console.log(startDate);
   const today = new Date();
   const formattedToday = today.toISOString().split("T")[0];
-  const [currentTime, setCurrentTime] = useState(new Date());
   const [cepNotFound, setCepNotFound] = useState(false);
 
   const buscarEnderecoPorCep = async (cep) => {
@@ -285,20 +279,7 @@ export default function DetailForm() {
             onChange={(e) => setComplement(e.target.value)}
           />
         </Grid>
-        
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="longitude"
-            name="longitude"
-            label="Longitude"
-            fullWidth
-            autoComplete=""
-            variant="standard"
-            value={geolocation.longitude}
-            onChange={(e) => setGeolocation({ longitude: e.target.value })}
-          />
-        </Grid>
+
         <Grid item xs={12} sm={6}>
           <TextField
             required
@@ -309,9 +290,33 @@ export default function DetailForm() {
             autoComplete=""
             variant="standard"
             value={geolocation.latitude}
-            onChange={(e) => setGeolocation({ latitude: e.target.value })}
+            onChange={(e) =>
+              setGeolocation({
+                ...geolocation, // Preserva outras propriedades do geolocation
+                latitude: e.target.value,
+              })
+            }
           />
         </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="longitude"
+            name="longitude"
+            label="Longitude"
+            fullWidth
+            autoComplete=""
+            variant="standard"
+            value={geolocation.longitude}
+            onChange={(e) =>
+              setGeolocation({
+                ...geolocation, // Preserva outras propriedades do geolocation
+                longitude: e.target.value,
+              })
+            }
+          />
+        </Grid>
+
         <Grid item xs={12}></Grid>
       </Grid>
     </React.Fragment>

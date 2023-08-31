@@ -19,12 +19,20 @@ export function AppContextProvider({ children }) {
     estado: "",
   });
   const [cep, setCep] = useState("");
-  const [houseNumber, setHouseNumber] = useState(0)
-  const [complement, setComplement] = useState("")
+  const [houseNumber, setHouseNumber] = useState(0);
+  const [complement, setComplement] = useState("");
   const [geolocation, setGeolocation] = useState({
     latitude: "",
-    longitude: ""
-  })
+    longitude: "",
+  });
+
+  // Estados para o cadastro de medicamentos
+  const [medicineName, setMedicineName] = useState("");
+  const [labName, setLabName] = useState("");
+  const [dosage, setDosage] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [medicineType, setMedicineType] = useState("Medicamento comum");
 
   return (
     <AppContext.Provider
@@ -56,8 +64,21 @@ export function AppContextProvider({ children }) {
         houseNumber,
         setHouseNumber,
         geolocation,
-        setGeolocation
-        // ... other state and setter pairs
+        setGeolocation,
+
+        // Estados para o cadastro de medicamentos
+        medicineName,
+        setMedicineName,
+        labName,
+        setLabName,
+        dosage,
+        setDosage,
+        description,
+        setDescription,
+        price,
+        setPrice,
+        medicineType,
+        setMedicineType,
       }}
     >
       {children}
