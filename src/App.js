@@ -6,10 +6,10 @@ import SignUp from "./components/SignUp";
 import NotFound from "./components/NotFound";
 import Dashboard from "./components/Dashboard";
 import PharmacyForm from "./components/add-pharmacy/PharmacyForm";
-import { AppContextProvider } from "./components/AppContext";
+import { AppContextProvider } from "./context/AppContext";
 import axios from "axios";
 import MedicineForm from "./components/add-medicine/MedicineForm";
-import MedicineListPage from "./components/MedicineListPage";
+import MedicineListPage from "./components/medicineList/MedicineListPage";
 import MapPharmacyPage from "./components/maps/MapPharmacyPage";
 import Loading from "./components/Loading";
 

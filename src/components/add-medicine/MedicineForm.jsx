@@ -24,7 +24,7 @@ import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import Grid from "@mui/material/Grid";
 import { useContext } from "react";
-import { AppContext } from "../AppContext";
+import { AppContext } from "../../context/AppContext";
 import { ToastContainer, toast } from "react-toastify";
 import { useEffect } from "react";
 

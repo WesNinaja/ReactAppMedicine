@@ -19,7 +19,7 @@ import {
   TextField,
 } from "@mui/material";
 import MedicineDetailsPage from "./MedicineDetailsPage";
-import { mainListItems } from "./listItems";
+import { mainListItems } from "../listItems";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -87,24 +87,6 @@ export default function MedicineListPage() {
     setFilteredMedicineData(filteredData);
   };
 
-  const handleFilter = () => {
-    const filteredData = Object.keys(medicineData).reduce(
-      (filtered, medicineId) => {
-        const medicine = medicineData[medicineId];
-        if (
-          medicine.medicineName
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase()) ||
-          medicine.labName.toLowerCase().includes(searchTerm.toLowerCase())
-        ) {
-          filtered[medicineId] = medicine;
-        }
-        return filtered;
-      },
-      {}
-    );
-    setFilteredMedicineData(filteredData);
-  };
 
   const Drawer = styled(MuiDrawer, {
     shouldForwardProp: (prop) => prop !== "open",

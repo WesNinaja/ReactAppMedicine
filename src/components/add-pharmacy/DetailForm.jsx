@@ -3,7 +3,7 @@ import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { useContext } from "react";
-import { AppContext } from "../AppContext";
+import { AppContext } from "../../context/AppContext";
 import { useEffect } from "react";
 import axios from "axios";
 
@@ -21,8 +21,6 @@ export default function DetailForm() {
     setPhone,
     cellPhone,
     setCellPhone,
-    startDate,
-    setStartDate,
     cep,
     setCep,
     address,
@@ -42,7 +40,6 @@ export default function DetailForm() {
   const loggedInUserId = sessionStorage.getItem("loggedInUserId");
   console.log(loggedInUserId);
   setUserId(loggedInUserId);
-  console.log(startDate);
   const today = new Date();
   const formattedToday = today.toISOString().split("T")[0];
   const [cepNotFound, setCepNotFound] = useState(false);
@@ -77,9 +74,6 @@ export default function DetailForm() {
     </p>
   );
 
-  useEffect(() => {
-    setStartDate(formattedToday);
-  }, []);
 
   return (
     <React.Fragment>
@@ -141,7 +135,7 @@ export default function DetailForm() {
             required
             id="phone"
             name="phone"
-            label="Phone"
+            label="Telefone"
             fullWidth
             autoComplete=""
             variant="standard"
@@ -154,25 +148,12 @@ export default function DetailForm() {
             required
             id="cellPhone"
             name="cellPhone"
-            label="Cell Phone"
+            label="Celular"
             fullWidth
             autoComplete=""
             variant="standard"
             value={cellPhone}
             onChange={(e) => setCellPhone(e.target.value)}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="startingDate"
-            name="startingDate"
-            label="Starting Date"
-            type="date"
-            defaultValue={formattedToday}
-            fullWidth
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -271,7 +252,7 @@ export default function DetailForm() {
             required
             id="complement"
             name="complement"
-            label="Complement"
+            label="Complemento"
             fullWidth
             autoComplete=""
             variant="standard"

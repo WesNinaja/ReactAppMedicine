@@ -99,14 +99,6 @@ const columns: GridColDef[] = [
     headerClassName: 'bold-header',
   },
   {
-    field: 'startDate',
-    headerName: 'Start Date',
-    description: 'This column has a value of Start Date.',
-    sortable: false,
-    width: 160,
-    headerClassName: 'bold-header',
-  },
-  {
     field: 'action',
     headerName: 'Action',
     sortable: false,

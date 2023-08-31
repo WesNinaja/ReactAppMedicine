@@ -25,7 +25,7 @@ import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import Grid from "@mui/material/Grid";
 import { useContext } from "react";
-import { AppContext } from "../AppContext";
+import { AppContext } from "../../context/AppContext";
 import { ToastContainer, toast } from "react-toastify";
 import { useEffect } from "react";
 
@@ -64,7 +64,6 @@ export default function PharmacyForm() {
     houseNumber,
     complement,
     geolocation,
-    startDate,
     document_user_id,
     user_id,
   } = useContext(AppContext);
@@ -80,7 +79,6 @@ export default function PharmacyForm() {
     houseNumber,
     complement,
     geolocation,
-    startDate,
     user_id,
   };
 
@@ -104,8 +102,7 @@ export default function PharmacyForm() {
       !cellPhone ||
       !houseNumber ||
       !geolocation ||
-      !address ||
-      !startDate
+      !address
     ) {
       toast.error("Please Enter All the required fields", {
         position: "top-right",
@@ -140,7 +137,6 @@ export default function PharmacyForm() {
               houseNumber,
               complement,
               geolocation,
-              startDate,
               document_user_id: entryKey,
             },
           };

@@ -9,7 +9,6 @@ export function AppContextProvider({ children }) {
   const [phone, setPhone] = useState("");
   const [cellPhone, setCellPhone] = useState("");
   const [cnpj, setCnpj] = useState("");
-  const [startDate, setStartDate] = useState();
   const [document_user_id, setDocumentUserId] = useState();
   const [user_id, setUserId] = useState("");
   const [address, setAddress] = useState({
@@ -49,8 +48,6 @@ export function AppContextProvider({ children }) {
         setPhone,
         cellPhone,
         setCellPhone,
-        startDate,
-        setStartDate,
         document_user_id,
         setDocumentUserId,
         user_id,

@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { useContext, useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
-import { AppContext } from "../AppContext";
+import { AppContext } from "../../context/AppContext";
 
 export default function MedicineDetailForm() {
   const {
