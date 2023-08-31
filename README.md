@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# Medication Management
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Descrição
 
-## Available Scripts
+O Medication Management é uma aplicação desenvolvida em React que oferece uma solução eficiente para a organização de farmácias e estoques de medicamentos. Com uma interface intuitiva e fácil de usar, o aplicativo ajuda a controlar informações importantes sobre farmácias e medicamentos, garantindo uma gestão mais eficaz e simplificada.
 
-In the project directory, you can run:
+![Medication Management](link_para_imagem.png)
 
-### `npm start`
+## Funcionalidades
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Autenticação de Usuário: Página de login para autenticação com validação de e-mail e senha.
+- Cadastro de Farmácia: Permite cadastrar detalhes completos de uma nova farmácia, incluindo informações de contato, endereço e geolocalização.
+- Cadastro de Medicamentos: Permite adicionar informações detalhadas sobre medicamentos, incluindo nome, laboratório, dosagem, descrição, preço e tipo.
+- Visualização no Mapa: Exibe um mapa com marcadores de todas as farmácias cadastradas, possibilitando a identificação de sua localização.
+- Listagem de Medicamentos: Apresenta todos os medicamentos cadastrados em formato de card, com opção de busca e filtro.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tecnologias Utilizadas
 
-### `npm test`
+- React
+- JavaScript
+- Material UI
+- LocalStorage
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Instalação
 
-### `npm run build`
+1. Clone este repositório para o seu computador.
+2. Navegue até a pasta do projeto usando o terminal.
+3. Execute o comando `npm install` para instalar as dependências.
+4. Após a instalação, execute o comando `npm start` para iniciar a aplicação.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Melhorias Futuras
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Aprimoramento da responsividade para dispositivos móveis.
+- Implementação de mais filtros na página de listagem de medicamentos.
+- Adição de mais funcionalidades extras, como recuperação de senha.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Contribuição
 
-### `npm run eject`
+Contribuições são bem-vindas! Se você encontrar um problema ou quiser adicionar alguma funcionalidade, fique à vontade para abrir um pull request.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Contato
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Se você tiver alguma dúvida ou sugestão, entre em contato.
