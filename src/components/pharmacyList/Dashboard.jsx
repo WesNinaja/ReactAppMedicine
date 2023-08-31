@@ -17,10 +17,10 @@ import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { mainListItems } from "./listItems";
+import { mainListItems } from "../listItems";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { useHistory } from "react-router-dom";
-import NotFound from "./NotFound";
+import NotFound from "../NotFound";
 import PharmacyList from "./PharmacyList";
 
 const drawerWidth = 280;

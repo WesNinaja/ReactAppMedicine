@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SignInSlide from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import NotFound from "./components/NotFound";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/pharmacyList/Dashboard";
 import PharmacyForm from "./components/add-pharmacy/PharmacyForm";
 import { AppContextProvider } from "./context/AppContext";
 import axios from "axios";

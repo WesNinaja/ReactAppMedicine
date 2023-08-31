@@ -4,7 +4,7 @@ import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid'
 import { useEffect, useState } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { ToastContainer, toast } from 'react-toastify'
-import "../App.css"
+import "../../App.css"
 const columns: GridColDef[] = [
   { field: 'document_user_id', headerName: 'Document Id', width: 150 },
   {
